@@ -1,0 +1,28 @@
+# System
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Java / Gradle
+backend/.gradle/
+backend/build/
+backend/out/
+backend/.env
+
+# Local files
+uploads/
+*.log
+

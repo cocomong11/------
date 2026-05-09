@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:tax_assistant_test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  flyway:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    show-sql: false
+
+app:
+  security:
+    jwt:
+      secret: test-secret-key-must-be-at-least-32-bytes
+      expiration-minutes: 60
+  files:
+    local-storage-path: build/test-uploads
+    max-size-bytes: 10485760
