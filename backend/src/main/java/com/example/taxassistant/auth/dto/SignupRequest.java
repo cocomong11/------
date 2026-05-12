@@ -16,7 +16,20 @@ public record SignupRequest(
 
         @NotBlank
         @Size(min = 8, max = 100)
-        String password
-) {
-}
+        String password,
 
+        boolean termsAgreed,
+
+        boolean privacyAgreed,
+
+        boolean businessInfoConsentAgreed,
+
+        boolean taxDataConsentAgreed,
+
+        boolean referenceNoticeAgreed
+) {
+
+    public SignupRequest(String name, String email, String password) {
+        this(name, email, password, true, true, true, true, true);
+    }
+}

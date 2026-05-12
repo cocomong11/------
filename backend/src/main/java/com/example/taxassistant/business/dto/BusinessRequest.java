@@ -16,18 +16,48 @@ public record BusinessRequest(
         @Size(max = 30)
         String businessRegistrationNumber,
 
+        @Size(max = 100)
+        String representativeName,
+
         @Size(max = 150)
         String industryName,
+
+        @Size(max = 50)
+        String taxationType,
 
         @NotNull
         BusinessIndustryGroup industryGroup,
 
         boolean professionalBusiness,
 
+        boolean hasEmployees,
+
         LocalDate openedOn,
 
         @DecimalMin(value = "0.00")
         BigDecimal previousYearRevenue
 ) {
-}
 
+    public BusinessRequest(
+            String name,
+            String businessRegistrationNumber,
+            String industryName,
+            BusinessIndustryGroup industryGroup,
+            boolean professionalBusiness,
+            LocalDate openedOn,
+            BigDecimal previousYearRevenue
+    ) {
+        this(
+                name,
+                businessRegistrationNumber,
+                null,
+                industryName,
+                null,
+                industryGroup,
+                professionalBusiness,
+                false,
+                openedOn,
+                previousYearRevenue
+        );
+    }
+}

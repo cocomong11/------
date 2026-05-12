@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.example.taxassistant.auth.dto.LoginRequest;
 import com.example.taxassistant.auth.dto.SignupRequest;
 import com.example.taxassistant.business.dto.BusinessRequest;
+import com.example.taxassistant.business.dto.BusinessVerificationRequest;
 import com.example.taxassistant.domain.business.BusinessRepository;
 import com.example.taxassistant.domain.category.CategoryRuleRepository;
 import com.example.taxassistant.domain.checklist.ChecklistItemRepository;
@@ -155,6 +156,17 @@ class UserFlowIntegrationTest {
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(businessId));
+
+        mockMvc.perform(post("/api/businesses/{businessId}/verify", businessId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(new BusinessVerificationRequest(
+                                "123-45-67890",
+                                "흐름 테스트 사용자",
+                                LocalDate.of(2025, 1, 1)
+                        ))))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.verificationStatus").value("VERIFIED"));
 
         mockMvc.perform(multipart("/api/businesses/{businessId}/files", businessId)
                         .file(csvFile())

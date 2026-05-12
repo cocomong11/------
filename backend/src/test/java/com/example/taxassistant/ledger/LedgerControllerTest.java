@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.example.taxassistant.auth.dto.SignupRequest;
 import com.example.taxassistant.business.dto.BusinessRequest;
+import com.example.taxassistant.business.dto.BusinessVerificationRequest;
 import com.example.taxassistant.domain.business.BusinessRepository;
 import com.example.taxassistant.domain.category.CategoryRuleRepository;
 import com.example.taxassistant.domain.enums.BusinessIndustryGroup;
@@ -154,6 +155,7 @@ class LedgerControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
         String businessId = objectMapper.readTree(businessResult.getResponse().getContentAsString()).get("id").asText();
+        verifyBusiness(token, businessId);
 
         String csv = """
                 거래일자,거래처,내용,입금액,출금액,부가세
@@ -176,6 +178,18 @@ class LedgerControllerTest {
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
                 .andExpect(status().isOk());
         return new AuthFixture(token, businessId);
+    }
+
+    private void verifyBusiness(String token, String businessId) throws Exception {
+        mockMvc.perform(post("/api/businesses/{businessId}/verify", businessId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(new BusinessVerificationRequest(
+                                "123-45-67890",
+                                "장부 테스트 사용자",
+                                LocalDate.of(2025, 1, 1)
+                        ))))
+                .andExpect(status().isOk());
     }
 
     private String signupAndGetToken(String email) throws Exception {

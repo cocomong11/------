@@ -1,11 +1,14 @@
 package com.example.taxassistant.files;
 
 import com.example.taxassistant.files.dto.FileUploadResponse;
+import com.example.taxassistant.files.dto.UploadedFileResponse;
 import com.example.taxassistant.security.UserPrincipal;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -30,5 +33,12 @@ public class FileUploadController {
     ) {
         return fileUploadService.upload(principal.getId(), businessId, file);
     }
-}
 
+    @GetMapping
+    public List<UploadedFileResponse> findAll(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @PathVariable UUID businessId
+    ) {
+        return fileUploadService.findAll(principal.getId(), businessId);
+    }
+}

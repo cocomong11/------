@@ -34,7 +34,16 @@ app:
   security:
     jwt:
       secret: ${JWT_SECRET:local-development-secret-key-must-be-at-least-32-bytes}
-      expiration-minutes: ${JWT_EXPIRATION_MINUTES:120}
+      expiration-minutes: ${JWT_EXPIRATION_MINUTES:15}
+    refresh-token:
+      expiration-days: ${REFRESH_TOKEN_EXPIRATION_DAYS:14}
+    email:
+      auto-verify: ${EMAIL_AUTO_VERIFY:false}
+      fixed-code: ${EMAIL_FIXED_CODE:}
+      verification-expiration-minutes: ${EMAIL_VERIFICATION_EXPIRATION_MINUTES:10}
+    password-reset:
+      expiration-minutes: ${PASSWORD_RESET_EXPIRATION_MINUTES:30}
+    login-lock-minutes: ${LOGIN_LOCK_MINUTES:15}
   files:
     local-storage-path: ${FILE_STORAGE_PATH:uploads}
     max-size-bytes: ${FILE_MAX_SIZE_BYTES:10485760}

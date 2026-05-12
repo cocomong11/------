@@ -28,7 +28,7 @@ export function BookkeepingResultCard({
         <div className="flex items-center justify-between gap-3">
           <CardTitle className="flex items-center gap-2">
             <Icon className="h-5 w-5" />
-            판별 결과
+            장부 유형 예측
           </CardTitle>
           <Badge variant={variantByType[prediction.bookkeepingType]}>{prediction.title}</Badge>
         </div>
@@ -40,4 +40,3 @@ export function BookkeepingResultCard({
     </Card>
   );
 }
-

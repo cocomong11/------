@@ -52,7 +52,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return status != UserStatus.LOCKED;
+        return status != UserStatus.SUSPENDED && status != UserStatus.DELETED;
     }
 
     @Override
@@ -60,4 +60,3 @@ public class UserPrincipal implements UserDetails {
         return status == UserStatus.ACTIVE;
     }
 }
-

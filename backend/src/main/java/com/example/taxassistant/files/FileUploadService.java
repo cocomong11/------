@@ -3,6 +3,7 @@ package com.example.taxassistant.files;
 import com.example.taxassistant.common.error.BusinessException;
 import com.example.taxassistant.common.error.ErrorCode;
 import com.example.taxassistant.domain.business.Business;
+import com.example.taxassistant.domain.enums.BusinessVerificationStatus;
 import com.example.taxassistant.domain.enums.TransactionType;
 import com.example.taxassistant.domain.file.UploadedFile;
 import com.example.taxassistant.domain.file.UploadedFileParseError;
@@ -12,6 +13,7 @@ import com.example.taxassistant.domain.transaction.Transaction;
 import com.example.taxassistant.domain.transaction.TransactionRepository;
 import com.example.taxassistant.files.dto.FileParseErrorResponse;
 import com.example.taxassistant.files.dto.FileUploadResponse;
+import com.example.taxassistant.files.dto.UploadedFileResponse;
 import com.example.taxassistant.files.parser.ParseFailure;
 import com.example.taxassistant.files.parser.ParsedTransactionRow;
 import com.example.taxassistant.files.parser.TransactionFileParser;
@@ -66,6 +68,9 @@ public class FileUploadService {
     @Transactional
     public FileUploadResponse upload(UUID userId, UUID businessId, MultipartFile multipartFile) {
         Business business = ownershipService.requireOwnedBusiness(userId, businessId);
+        if (business.getVerificationStatus() != BusinessVerificationStatus.VERIFIED) {
+            throw new BusinessException(ErrorCode.BUSINESS_VERIFICATION_REQUIRED);
+        }
         validateFile(multipartFile);
 
         String originalFilename = safeFilename(multipartFile.getOriginalFilename());
@@ -118,6 +123,15 @@ public class FileUploadService {
                         ))
                         .toList()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public List<UploadedFileResponse> findAll(UUID userId, UUID businessId) {
+        ownershipService.requireOwnedBusiness(userId, businessId);
+        return uploadedFileRepository.findAllByBusinessIdAndBusinessOwnerIdOrderByCreatedAtDesc(businessId, userId)
+                .stream()
+                .map(UploadedFileResponse::from)
+                .toList();
     }
 
     private void validateFile(MultipartFile multipartFile) {

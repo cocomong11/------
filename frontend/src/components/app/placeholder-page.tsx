@@ -1,5 +1,6 @@
+import { PageTitle } from "@/components/app/page-title";
+import { EmptyState } from "@/components/common";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function PlaceholderPage({
   title,
@@ -9,22 +10,12 @@ export function PlaceholderPage({
   description: string;
 }) {
   return (
-    <section className="space-y-4">
-      <div className="space-y-2">
-        <Badge variant="secondary">초기 화면</Badge>
-        <h1 className="text-2xl font-semibold tracking-normal">{title}</h1>
-        <p className="max-w-2xl text-sm leading-6 text-muted-foreground">{description}</p>
-      </div>
-      <Card>
-        <CardHeader>
-          <CardTitle>구현 예정</CardTitle>
-        </CardHeader>
-        <CardContent className="text-sm leading-6 text-muted-foreground">
-          현재 단계에서는 실행 가능한 프로젝트 뼈대만 구성했습니다. 다음 단계에서 도메인 API와 화면
-          상호작용을 연결합니다.
-        </CardContent>
-      </Card>
+    <section className="space-y-6">
+      <PageTitle actions={<Badge variant="secondary">준비 중</Badge>} title={title} description={description} />
+      <EmptyState
+        title="곧 사용할 수 있습니다"
+        description="현재 단계에서는 주요 신고 준비 흐름을 먼저 안정화하고 있습니다. 이 화면은 다음 개선 단계에서 연결됩니다."
+      />
     </section>
   );
 }
-

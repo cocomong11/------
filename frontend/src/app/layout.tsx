@@ -4,8 +4,8 @@ import { AppShell } from "@/components/app/app-shell";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: "AI 간편장부 세무 준비",
-  description: "소규모 개인사업자를 위한 간편장부 및 신고 준비 도구",
+  title: "세무 준비 도우미",
+  description: "소상공인을 위한 세무자료 정리와 신고 준비 도구",
 };
 
 export default function RootLayout({
@@ -23,4 +23,3 @@ export default function RootLayout({
     </html>
   );
 }
-

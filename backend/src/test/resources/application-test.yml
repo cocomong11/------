@@ -17,6 +17,15 @@ app:
     jwt:
       secret: test-secret-key-must-be-at-least-32-bytes
       expiration-minutes: 60
+    refresh-token:
+      expiration-days: 14
+    email:
+      auto-verify: true
+      fixed-code: "123456"
+      verification-expiration-minutes: 10
+    password-reset:
+      expiration-minutes: 30
+    login-lock-minutes: 15
   files:
     local-storage-path: build/test-uploads
     max-size-bytes: 10485760

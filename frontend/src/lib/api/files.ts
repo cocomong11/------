@@ -17,7 +17,20 @@ export type FileUploadResponse = {
   errors: FileParseError[];
 };
 
+export type UploadedFile = {
+  id: string;
+  originalFilename: string;
+  processingStatus: FileProcessingStatus;
+  fileSizeBytes: number;
+  uploadedAt: string;
+};
+
 export const filesApi = {
+  list(businessId: string) {
+    return apiRequest<UploadedFile[]>(`/businesses/${businessId}/files`, {
+      headers: authHeader(),
+    });
+  },
   upload(businessId: string, file: File) {
     const formData = new FormData();
     formData.append("file", file);
@@ -29,4 +42,3 @@ export const filesApi = {
     });
   },
 };
-

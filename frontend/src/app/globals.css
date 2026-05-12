@@ -8,17 +8,17 @@
     --foreground: 222 47% 11%;
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
-    --primary: 173 72% 32%;
+    --primary: 205 86% 32%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 20% 92%;
+    --secondary: 210 28% 94%;
     --secondary-foreground: 222 47% 11%;
-    --muted: 210 25% 94%;
-    --muted-foreground: 215 16% 40%;
-    --destructive: 0 75% 45%;
+    --muted: 210 30% 96%;
+    --muted-foreground: 215 16% 42%;
+    --destructive: 0 72% 45%;
     --destructive-foreground: 0 0% 100%;
-    --border: 214 22% 84%;
-    --input: 214 22% 84%;
-    --ring: 173 72% 32%;
+    --border: 214 24% 86%;
+    --input: 214 24% 86%;
+    --ring: 205 86% 32%;
     --radius: 0.5rem;
   }
 
@@ -26,8 +26,16 @@
     @apply border-border;
   }
 
+  html {
+    @apply bg-background;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  ::selection {
+    @apply bg-primary/15;
   }
 }
-

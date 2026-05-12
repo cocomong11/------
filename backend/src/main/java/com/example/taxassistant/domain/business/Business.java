@@ -2,6 +2,7 @@ package com.example.taxassistant.domain.business;
 
 import com.example.taxassistant.domain.common.BaseEntity;
 import com.example.taxassistant.domain.enums.BookkeepingType;
+import com.example.taxassistant.domain.enums.BusinessVerificationStatus;
 import com.example.taxassistant.domain.enums.BusinessIndustryGroup;
 import com.example.taxassistant.domain.user.User;
 import jakarta.persistence.Column;
@@ -40,8 +41,14 @@ public class Business extends BaseEntity {
     @Column(name = "business_registration_number", length = 30)
     private String businessRegistrationNumber;
 
+    @Column(name = "representative_name", length = 100)
+    private String representativeName;
+
     @Column(name = "industry_name", length = 150)
     private String industryName;
+
+    @Column(name = "taxation_type", length = 50)
+    private String taxationType;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "industry_group", nullable = false, length = 30)
@@ -49,6 +56,9 @@ public class Business extends BaseEntity {
 
     @Column(name = "professional_business", nullable = false)
     private boolean professionalBusiness;
+
+    @Column(name = "has_employees", nullable = false)
+    private boolean hasEmployees;
 
     @Column(name = "opened_on")
     private LocalDate openedOn;
@@ -59,6 +69,10 @@ public class Business extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "bookkeeping_type", nullable = false, length = 30)
     private BookkeepingType bookkeepingType = BookkeepingType.NEEDS_REVIEW;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "verification_status", nullable = false, length = 30)
+    private BusinessVerificationStatus verificationStatus = BusinessVerificationStatus.NOT_STARTED;
 
     protected Business() {
     }
@@ -74,11 +88,39 @@ public class Business extends BaseEntity {
     public void updateBasicInfo(
             String name,
             String businessRegistrationNumber,
+            String representativeName,
             String industryName
     ) {
         this.name = name;
         this.businessRegistrationNumber = businessRegistrationNumber;
+        this.representativeName = representativeName;
         this.industryName = industryName;
+    }
+
+    public void updateBasicInfo(
+            String name,
+            String businessRegistrationNumber,
+            String industryName
+    ) {
+        updateBasicInfo(name, businessRegistrationNumber, null, industryName);
+    }
+
+    public void updateBookkeepingProfile(
+            BusinessIndustryGroup industryGroup,
+            boolean professionalBusiness,
+            boolean hasEmployees,
+            String taxationType,
+            LocalDate openedOn,
+            BigDecimal previousYearRevenue,
+            BookkeepingType bookkeepingType
+    ) {
+        this.industryGroup = industryGroup;
+        this.professionalBusiness = professionalBusiness;
+        this.hasEmployees = hasEmployees;
+        this.taxationType = taxationType;
+        this.openedOn = openedOn;
+        this.previousYearRevenue = previousYearRevenue;
+        this.bookkeepingType = bookkeepingType;
     }
 
     public void updateBookkeepingProfile(
@@ -88,11 +130,19 @@ public class Business extends BaseEntity {
             BigDecimal previousYearRevenue,
             BookkeepingType bookkeepingType
     ) {
-        this.industryGroup = industryGroup;
-        this.professionalBusiness = professionalBusiness;
-        this.openedOn = openedOn;
-        this.previousYearRevenue = previousYearRevenue;
-        this.bookkeepingType = bookkeepingType;
+        updateBookkeepingProfile(
+                industryGroup,
+                professionalBusiness,
+                false,
+                null,
+                openedOn,
+                previousYearRevenue,
+                bookkeepingType
+        );
+    }
+
+    public void updateVerificationStatus(BusinessVerificationStatus verificationStatus) {
+        this.verificationStatus = verificationStatus;
     }
 
     public UUID getId() {
@@ -111,8 +161,16 @@ public class Business extends BaseEntity {
         return businessRegistrationNumber;
     }
 
+    public String getRepresentativeName() {
+        return representativeName;
+    }
+
     public String getIndustryName() {
         return industryName;
+    }
+
+    public String getTaxationType() {
+        return taxationType;
     }
 
     public BusinessIndustryGroup getIndustryGroup() {
@@ -121,6 +179,10 @@ public class Business extends BaseEntity {
 
     public boolean isProfessionalBusiness() {
         return professionalBusiness;
+    }
+
+    public boolean hasEmployees() {
+        return hasEmployees;
     }
 
     public LocalDate getOpenedOn() {
@@ -133,5 +195,9 @@ public class Business extends BaseEntity {
 
     public BookkeepingType getBookkeepingType() {
         return bookkeepingType;
+    }
+
+    public BusinessVerificationStatus getVerificationStatus() {
+        return verificationStatus;
     }
 }

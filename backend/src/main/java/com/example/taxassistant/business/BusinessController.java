@@ -2,6 +2,8 @@ package com.example.taxassistant.business;
 
 import com.example.taxassistant.business.dto.BusinessRequest;
 import com.example.taxassistant.business.dto.BusinessResponse;
+import com.example.taxassistant.business.dto.BusinessVerificationRequest;
+import com.example.taxassistant.business.dto.BusinessVerificationResponse;
 import com.example.taxassistant.security.UserPrincipal;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -54,5 +56,13 @@ public class BusinessController {
     ) {
         return businessService.update(principal.getId(), id, request);
     }
-}
 
+    @PostMapping("/{id}/verify")
+    public BusinessVerificationResponse verify(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @PathVariable UUID id,
+            @Valid @RequestBody BusinessVerificationRequest request
+    ) {
+        return businessService.verify(principal.getId(), id, request);
+    }
+}
