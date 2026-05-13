@@ -4,22 +4,22 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    --background: 214 29% 97%;
+    --foreground: 225 23% 13%;
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
-    --primary: 205 86% 32%;
+    --primary: 221 83% 53%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 28% 94%;
+    --secondary: 210 40% 96%;
     --secondary-foreground: 222 47% 11%;
-    --muted: 210 30% 96%;
-    --muted-foreground: 215 16% 42%;
-    --destructive: 0 72% 45%;
+    --muted: 210 40% 98%;
+    --muted-foreground: 215 16% 47%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
-    --border: 214 24% 86%;
-    --input: 214 24% 86%;
-    --ring: 205 86% 32%;
-    --radius: 0.5rem;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
+    --radius: 0.75rem;
   }
 
   * {
@@ -32,10 +32,45 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", Pretendard, "Segoe UI", sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   ::selection {
     @apply bg-primary/15;
+  }
+
+  select {
+    @apply h-9 rounded-lg border border-input bg-card px-3 text-[13px] text-foreground outline-none transition-colors;
+  }
+
+  select:focus {
+    @apply border-primary ring-2 ring-primary/15;
+  }
+
+  table {
+    @apply w-full border-collapse text-[13px];
+  }
+
+  th {
+    @apply whitespace-nowrap border-b border-border px-3 py-2 text-left text-[11px] font-semibold text-muted-foreground;
+  }
+
+  td {
+    @apply border-b border-secondary px-3 py-[11px] align-middle text-slate-700;
+  }
+
+  tbody tr:hover td {
+    @apply bg-muted;
+  }
+}
+
+@layer components {
+  .soft-panel {
+    @apply rounded-xl border border-border bg-card;
+  }
+
+  .legal-disclaimer {
+    @apply rounded-lg border border-border bg-muted px-4 py-3 text-[11px] leading-6 text-muted-foreground;
   }
 }

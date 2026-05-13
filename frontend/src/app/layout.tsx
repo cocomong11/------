@@ -4,7 +4,7 @@ import { AppShell } from "@/components/app/app-shell";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: "세무 준비 도우미",
+  title: "장부톡",
   description: "소상공인을 위한 세무자료 정리와 신고 준비 도구",
 };
 

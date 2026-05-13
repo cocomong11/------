@@ -9,7 +9,7 @@ export function LoadingState({
   label?: string;
 }) {
   return (
-    <div className={cn("flex items-center gap-2 rounded-md border bg-card p-4 text-sm text-muted-foreground", className)}>
+    <div className={cn("flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-3 text-[13px] text-muted-foreground", className)}>
       <Loader2 className="h-4 w-4 animate-spin" />
       {label}
     </div>

@@ -16,13 +16,13 @@ export function EmptyState({
 }) {
   return (
     <Card>
-      <CardContent className="flex flex-col items-center gap-4 py-10 text-center">
-        <span className="inline-flex h-12 w-12 items-center justify-center rounded-md bg-secondary">
+      <CardContent className="flex flex-col items-center gap-3 py-10 text-center">
+        <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-secondary">
           <Icon className="h-6 w-6 text-muted-foreground" />
         </span>
         <div>
-          <h2 className="font-semibold tracking-normal">{title}</h2>
-          <p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">{description}</p>
+          <h2 className="text-[14px] font-semibold tracking-normal text-slate-900">{title}</h2>
+          <p className="mt-2 max-w-md text-[13px] leading-6 text-muted-foreground">{description}</p>
         </div>
         {action ? <div>{action}</div> : null}
       </CardContent>

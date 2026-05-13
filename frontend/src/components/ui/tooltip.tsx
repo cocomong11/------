@@ -33,7 +33,7 @@ function TooltipContent({
   return (
     <span
       className={cn(
-        "pointer-events-none absolute left-1/2 top-full z-50 mt-2 hidden w-64 -translate-x-1/2 rounded-md border bg-card px-3 py-2 text-xs font-normal leading-5 text-card-foreground shadow-md group-focus-within:inline-block group-hover:inline-block",
+        "pointer-events-none absolute left-1/2 top-full z-50 mt-2 hidden w-64 -translate-x-1/2 rounded-lg border border-border bg-card px-3 py-2 text-[12px] font-normal leading-5 text-card-foreground shadow-md group-focus-within:inline-block group-hover:inline-block",
         className,
       )}
       role="tooltip"

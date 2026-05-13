@@ -129,3 +129,24 @@ npm run dev
 - `docs/sample-files/sample-transactions.xlsx`
 
 두 파일 모두 거래일자, 거래처, 내용, 입금액, 출금액, 부가세 컬럼을 포함합니다. `/files` 화면에서 업로드해 파싱과 자동 분류 흐름을 확인할 수 있습니다.
+
+## 서버/보안/인증 기준
+
+상용화 전에는 UI 고도화보다 서버, 보안, 인증을 먼저 안정화합니다.
+
+- 운영 환경은 `prod` 프로필을 사용합니다.
+- `JWT_SECRET`은 기본값을 쓰지 말고 외부 Secret Manager 또는 배포 환경변수로 주입합니다.
+- `CORS_ALLOWED_ORIGINS`에는 실제 프론트엔드 도메인만 쉼표로 지정합니다.
+- 운영 환경에서는 이메일 자동 인증을 켜지 않습니다.
+- 운영 환경에서는 H2 DB를 사용하지 않습니다.
+- API 응답에는 CSP, Frame Options, Referrer Policy, nosniff 등 기본 보안 헤더가 포함됩니다.
+- 개발 PC에 Docker/PostgreSQL이 없을 때만 `local` 프로필의 H2 파일 DB를 사용합니다.
+
+예시:
+
+```bash
+JWT_SECRET="change-me-to-a-long-random-secret" \
+CORS_ALLOWED_ORIGINS="https://app.example.com" \
+SPRING_PROFILES_ACTIVE=prod \
+./gradlew bootRun
+```

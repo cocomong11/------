@@ -5,9 +5,9 @@ type AlertVariant = "default" | "success" | "warning" | "destructive";
 
 const variantClassName: Record<AlertVariant, string> = {
   default: "border-border bg-card text-card-foreground",
-  success: "border-emerald-200 bg-emerald-50 text-emerald-900",
-  warning: "border-amber-200 bg-amber-50 text-amber-900",
-  destructive: "border-destructive/30 bg-destructive/10 text-destructive",
+  success: "border-emerald-100 bg-emerald-50 text-emerald-900",
+  warning: "border-amber-100 bg-amber-50 text-amber-900",
+  destructive: "border-red-100 bg-red-50 text-red-700",
 };
 
 export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -18,7 +18,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
   ({ className, variant = "default", ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("relative w-full rounded-md border p-4 text-sm leading-6", variantClassName[variant], className)}
+      className={cn("relative w-full rounded-lg border px-4 py-3 text-[13px] leading-6", variantClassName[variant], className)}
       role="status"
       {...props}
     />
@@ -34,7 +34,7 @@ const AlertTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTM
 AlertTitle.displayName = "AlertTitle";
 
 const AlertDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
-  ({ className, ...props }, ref) => <p ref={ref} className={cn("text-sm leading-6", className)} {...props} />,
+  ({ className, ...props }, ref) => <p ref={ref} className={cn("text-[13px] leading-6", className)} {...props} />,
 );
 AlertDescription.displayName = "AlertDescription";
 

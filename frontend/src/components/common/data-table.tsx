@@ -29,12 +29,12 @@ export function DataTable<T>({
   }
 
   return (
-    <div className="overflow-x-auto rounded-md border">
-      <table className="w-full border-collapse text-sm" style={{ minWidth }}>
+    <div className="overflow-x-auto rounded-xl border border-border bg-card">
+      <table className="w-full border-collapse text-[13px]" style={{ minWidth }}>
         <thead>
-          <tr className="border-b bg-muted/60 text-left text-xs font-semibold uppercase tracking-[0.04em] text-muted-foreground">
+          <tr className="border-b border-border bg-card text-left text-[11px] font-semibold text-muted-foreground">
             {columns.map((column) => (
-              <th key={column.key} className={cn("px-4 py-3", column.className)}>
+              <th key={column.key} className={cn("px-3 py-2", column.className)}>
                 {column.header}
               </th>
             ))}
@@ -42,9 +42,9 @@ export function DataTable<T>({
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={getRowKey(row)} className="border-b bg-card last:border-0 hover:bg-secondary/40">
+            <tr key={getRowKey(row)} className="border-b border-secondary bg-card last:border-0 hover:bg-muted">
               {columns.map((column) => (
-                <td key={column.key} className={cn("px-4 py-3 align-middle", column.className)}>
+                <td key={column.key} className={cn("px-3 py-[11px] align-middle text-slate-700", column.className)}>
                   {column.cell(row)}
                 </td>
               ))}

@@ -74,7 +74,7 @@ function DialogContent({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 p-4">
       <div
         className={cn(
-          "relative max-h-[90vh] w-full max-w-lg overflow-auto rounded-md border bg-card p-6 text-card-foreground shadow-lg",
+          "relative max-h-[90vh] w-full max-w-lg overflow-auto rounded-xl border border-border bg-card p-5 text-card-foreground shadow-lg",
           className,
         )}
       >
@@ -99,11 +99,11 @@ function DialogHeader({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
 }
 
 function DialogTitle({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
-  return <h2 className={cn("text-lg font-semibold tracking-normal", className)} {...props} />;
+  return <h2 className={cn("text-[16px] font-semibold tracking-normal text-slate-900", className)} {...props} />;
 }
 
 function DialogDescription({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
-  return <p className={cn("text-sm leading-6 text-muted-foreground", className)} {...props} />;
+  return <p className={cn("text-[13px] leading-6 text-muted-foreground", className)} {...props} />;
 }
 
 function useDialogContext() {
